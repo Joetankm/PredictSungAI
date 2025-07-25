@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+  <title>Flood Risk Predictor</title>
+  <style>
+    body {
+        background-image: url("{{ url_for('static', filename='backgroundimg.jpg') }}");
+        background-size: cover; /* Cover entire screen */
+        background-repeat: repeat-y; /* Prevent repeating */
+        background-position: center; /* Center the image */
+    }
+
+
+    .container {
+      font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: 90%; /* make container stretch wider */
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+      label {
+        font-size: 20px;
+      }
+      button {
+        font-size: 20px;
+      }
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin: 10px 0;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #007700;
+      text-align: left;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Flood Risk Prediction</h1>
+  
+  <form id="predictForm">
+    <label>Rainfall (0-10): <input type="number" step="0.01" name="Rainfall" required></label>
+    <label>Drainage Efficiency (0-10): <input type="number" step="0.01" name="Drainage" required></label>
+    <label>Topography Slope (0-10): <input type="number" step="0.01" name="Topography" required></label>
+    <label>Deforestation Index (0-10): <input type="number" step="0.01" name="Deforestation" required></label>
+    <label>Urbanization Index (0-10): <input type="number" step="0.01" name="Urbanization" required></label>
+    <button type="submit">Predict</button>
+  </form>
+
+  <h2>Prediction Result:</h2>
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById('predictForm');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const data = {
+        Rainfall: parseFloat(form.Rainfall.value),
+        Drainage: parseFloat(form.Drainage.value),
+        Topography: parseFloat(form.Topography.value),
+        Deforestation: parseFloat(form.Deforestation.value),
+        Urbanization: parseFloat(form.Urbanization.value),
+      };
+
+      fetch('http://192.168.68.110:5000/predict', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(data => {
+        resultDiv.textContent = "The predicted risk of having a Flood is: "+data.predicted_risk || "No prediction received";
+      })
+      .catch(err => {
+        console.error(err);
+        resultDiv.textContent = "Failed to connect to backend";
+      });
+    });
+  </script>
+  </div>
+</body>
+</html>
