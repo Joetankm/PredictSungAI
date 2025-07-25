@@ -112,7 +112,7 @@
       })
       .then(res => res.json())
       .then(data => {
-        resultDiv.textContent = "The predicted risk of having a Flood is: "+data.predicted_risk || "No prediction received";
+        resultDiv.textContent = "The predicted risk of having a Flood is: "+data.predicted_risk+"%" || "No prediction received";
       })
       .catch(err => {
         console.error(err);
