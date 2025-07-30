@@ -136,7 +136,8 @@
       })
       .then(res => res.json())
       .then(data => {
-        resultDiv.textContent = "The predicted risk of having a Flood is: "+data.predicted_risk+"%" || "No prediction received";
+        resultDiv.innerHTML = `The predicted risk of having a Flood is: <strong>${data.predicted_risk}%</strong>
+        <br><span style="font-size: 0.7em; color: #666;">*This value was calculated using an AI-driven regression tree machine learning model.</span>` || "No prediction received";
       })
       .catch(err => {
         console.error(err);
