@@ -50,10 +50,20 @@
       }
       button {
         font-size: 20px;
+        width: 100%;
       }
       header{
         height: 100px;
+        display: flex; 
+        flex-direction: column; 
+        align-items: flex-start;
       }
+      .headerBtn{
+        display: flex; 
+        flex-direction: row; 
+        margin: auto;
+      }
+      
     }
 
     h1 {
@@ -93,8 +103,8 @@
 </head>
 <body>
   <header>
-    <h2 style="font-family: Arial, Helvetica, sans-serif;">PredictSungAI</h2>
-    <div>
+    <h2 style="margin: 0; font-family: Arial, Helvetica, sans-serif;">PredictSungAI</h2>
+    <div class="headerBtn">
       <button onclick="location.href='/'" style="margin-right: 10px;">Predict Page</button>
       <button onclick="location.href='/path'">Map View</button>
     </div>
