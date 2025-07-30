@@ -94,9 +94,18 @@
       }
       button {
         font-size: 20px;
+        width: 100%;
       }
       header{
         height: 100px;
+        display: flex; 
+        flex-direction: column; 
+        align-items: flex-start;
+      }
+      .headerBtn{
+        display: flex; 
+        flex-direction: row; 
+        margin: auto;
       }
     }
 
@@ -128,8 +137,8 @@
 </head>
 <body>
   <header>
-    <h2 style="margin: 0;">Flood Risk Predictor</h2>
-    <div>
+    <h2 style="margin: 0; font-family: Arial, Helvetica, sans-serif;">PredictSungAI</h2>
+    <div class="headerBtn">
       <button onclick="location.href='/'" style="margin-right: 10px;">Predict Page</button>
       <button onclick="location.href='/path'">Map View</button>
     </div>
@@ -144,29 +153,31 @@
       <img src="{{ url_for('static', filename='map.png') }}" alt="Map">
 
       <!-- Overlays -->
-      <div class="overlay" onclick="fillForm('Pahang')" style="top: 50.78%; left: 18.40%;"></div>
+      <div class="overlay" onclick="doTwoThings(this,'Pahang')" style="top: 50.78%; left: 18.40%;"></div>
 
-      <div class="overlay" onclick="fillForm('Johor')" style="top: 75.08%; left: 23.15%;"></div>
+      <div class="overlay" onclick="doTwoThings(this,'Perlis')" style="top: 8.72%; left: 3.73%;"></div>
 
-      <div class="overlay" onclick="fillForm('Melaka')" style="top: 74.14%; left: 16.72%;"></div>
+      <div class="overlay" onclick="doTwoThings(this,'Johor')" style="top: 75.08%; left: 23.15%;"></div>
 
-      <div class="overlay" onclick="fillForm('Negeri Sembilan')" style="top: 66.04%; left: 16.60%;"></div>
+      <div class="overlay" onclick="doTwoThings(this,'Melaka')" style="top: 74.14%; left: 16.72%;"></div>
 
-      <div class="overlay" onclick="fillForm('Selangor')" style="top: 57.94%; left: 11.83%;"></div>
+      <div class="overlay" onclick="doTwoThings(this,'Negeri Sembilan')" style="top: 66.04%; left: 16.60%;"></div>
 
-      <div class="overlay" onclick="fillForm('Perak')" style="top: 35.51%; left: 8.88%;"></div>
+      <div class="overlay" onclick="doTwoThings(this,'Selangor')" style="top: 57.94%; left: 11.83%;"></div>
 
-      <div class="overlay" onclick="fillForm('Kedah')" style="top: 16.82%; left: 6.43%;"></div>
+      <div class="overlay" onclick="doTwoThings(this,'Perak')" style="top: 35.51%; left: 8.88%;"></div>
 
-      <div class="overlay" onclick="fillForm('Kelantan')" style="top: 27.10%; left: 15.57%;"></div>
+      <div class="overlay" onclick="doTwoThings(this,'Kedah')" style="top: 16.82%; left: 6.43%;"></div>
 
-      <div class="overlay" onclick="fillForm('Penang')" style="top: 27.10%; left: 4.37%;"></div>
+      <div class="overlay" onclick="doTwoThings(this,'Kelantan')" style="top: 27.10%; left: 15.57%;"></div>
 
-      <div class="overlay" onclick="fillForm('Terrenganu')" style="top: 33.64%; left: 21.61%;"></div>
+      <div class="overlay" onclick="doTwoThings(this,'Penang')" style="top: 27.10%; left: 4.37%;"></div>
 
-      <div class="overlay" onclick="fillForm('Sarawak')" style="top: 74.14%; left: 63.59%;"></div>
+      <div class="overlay" onclick="doTwoThings(this,'Terengganu')" style="top: 33.64%; left: 21.61%;"></div>
 
-      <div class="overlay" onclick="fillForm('Sabah')" style="top: 32.40%; left: 85.96%;"></div>
+      <div class="overlay" onclick="doTwoThings(this,'Sarawak')" style="top: 74.14%; left: 63.59%;"></div>
+
+      <div class="overlay" onclick="doTwoThings(this,'Sabah')" style="top: 32.40%; left: 85.96%;"></div>
     </div>
 
     <h2 id="regionTitle"></h2>
@@ -206,18 +217,29 @@
         </select>
       </label>
 
-      <p id="infoDisplay" style="font-size: large; color: red; text-align: left;"></p>
-
+      <div style="display: flex; flex-direction: row; gap: 20%; justify-content: center; ">
+        <p id="infoDisplay1" style="font-size: large; color: red; text-align: left;"></p>
+        <p id="infoDisplay2" style="font-size: large; color: red; text-align: left;"></p>
+      </div>
+      <span id = "infoDisplay3" style="font-size: 0.7em; color: #666; display: none;">*This value was calculated using an AI-driven random forest machine learning model.</span>
+      <div style="display: flex; flex-direction: row; gap: 10%; justify-content: center; ">
+        <p id="ucsDisplay1" style="font-size: large; text-align: left;"></p>
+        <p id="ucsDisplay2" style="font-size: large; text-align: left;"></p>
+      </div>
+      <span id = "ucsDisplay3" style="font-size: 0.7em; color: #666; display: none;">*This path was generated using UCS, an AI-driven search algorithm focused on minimizing cost (distance).</span>
       <button type="submit">Save</button>
       <button type="button" id="submitBtn">Submit for Prediction</button>
+      <button type="button" id="ucsPathBtn" style="display: none;">Predict Path</button>
     </form>
 
     <script>
+      let criticalRegion = null;
+      let selectedRegion = null;
       const savedData = {};
       const regionList = [
         'Johor', 'Pahang', 'Melaka', 'Negeri Sembilan', 'Selangor',
-        'Perak', 'Kedah', 'Kelantan', 'Penang', 'Terrenganu',
-        'Sarawak', 'Sabah'
+        'Perak', 'Kedah', 'Kelantan', 'Penang', 'Terengganu',
+        'Sarawak', 'Sabah', 'Perlis'
       ];
 
       const defaultValues = {
@@ -230,9 +252,10 @@
         "Kedah": [4, "Rural", 2200000, "Unavailable"],
         "Kelantan": [6, "Rural", 1900000, "Unavailable"],
         "Penang": [4, "Urban", 1800000, "Available"],
-        "Terrenganu": [5, "Rural", 1300000, "Unavailable"],
+        "Terengganu": [5, "Rural", 1300000, "Unavailable"],
         "Sarawak": [7, "Rural", 2800000, "Unavailable"],
-        "Sabah": [6, "Rural", 3500000, "Unavailable"]
+        "Sabah": [6, "Rural", 3500000, "Unavailable"],
+        "Perlis": [3, "Rural", 260000, "Unavailable"]
       };
 
       function initializeDefaultRegions() {
@@ -245,6 +268,30 @@
             Medical: medical
           };
         });
+      }
+
+      function doTwoThings(overlay,area){
+        selectedRegion = area;
+        fillForm(area);
+        changeShapeClr(overlay);
+      }
+
+      function changeShapeClr(clickedEl){
+        document.querySelectorAll('.overlay').forEach(el => {
+          el.style.backgroundColor = "";
+          el.style.border = "";
+          el.style.width = "";
+          if (criticalRegion && el.getAttribute("onclick").includes(`'${criticalRegion.Area}'`)) {
+            el.style.backgroundColor = "#cc0000";  // critical red
+            el.style.border = "2px solid #660000";
+            el.style.width = "4%";
+          } 
+          if (el === clickedEl){
+            el.style.backgroundColor = "#ff6666";
+            el.style.border = "2px solid #cc0000";
+            el.style.width = "4%";
+        } 
+      }); 
       }
 
       function fillForm(area) {
@@ -262,45 +309,108 @@
       }
 
       async function submitPrediction(e) {
-  e.preventDefault();
+        e.preventDefault();
+        const ucsPathBtn = document.getElementById("ucsPathBtn").style.display="inline";
 
-  const regions = Object.entries(savedData).map(([name, data]) => ({
-    Area: name,
-    Flood: data.Flood,
-    AreaType: data.AreaType,
-    Population: data.Population,
-    Medical: data.Medical
-  }));
+        const regions = Object.entries(savedData).map(([name, data]) => ({
+          Area: name,
+          Flood: data.Flood,
+          AreaType: data.AreaType,
+          Population: data.Population,
+          Medical: data.Medical
+        }));
 
-  try {
-    const response = await fetch("/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ regions })
-    });
+        try {
+          const response = await fetch("/submit", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ regions })
+          });
 
-    const result = await response.json();
-    const est = result.Estimates;
+          criticalRegion = await response.json();
+          const est = criticalRegion.Estimates;
+          document.querySelectorAll('.overlay').forEach(el => {
+          if (el.getAttribute("onclick").includes(`'${criticalRegion.Area}'`)) {
+            el.style.backgroundColor = "#cc0000";  // critical red
+            el.style.border = "2px solid #660000"; // darker border
+            el.style.width= "4%";
+          } else if (el.getAttribute("onclick").includes(`'${selectedRegion}'`)){
+            el.style.border = "2px solid #cc0000"; // Darker red
+            el.style.backgroundColor = "#ff6666";  // Red
+            el.style.width= "4%";
+          } else {
+            el.style.backgroundColor = ""; // reset
+            el.style.border = "";
+            el.style.width = "";
+          }
+        });
 
 
-    const infoDisplay = document.getElementById("infoDisplay");
-    infoDisplay.innerHTML = `
-      <strong>${result.Area.toUpperCase()}</strong> is the CRITICAL ZONE!<br>
-      Danger Score: ${result.Priority.toFixed(2)}%<br>
-      Location Type: ${result.AreaType}<br>
-      Flood Severity: ${result.Flood}/10<br>
-      Population: ${result.Population} people<br>
-      Medical Resources: ${result.Medical === "Available" ? "Present" : "None"}<br><br>
-      <u>Estimated Resources Needed:</u><br>
-        Food: ${est.Food} meals<br>
-        Water: ${est.Water} litres<br>
-        Shelter: ${est.Shelter} people<br>
-        Medical Staff: ${est.MedicalStaff} personnel
-    `;
-  } catch (error) {
-    alert("Error submitting prediction: " + error.message);
-  }
-}
+          const infoDisplay1 = document.getElementById("infoDisplay1");
+          const infoDisplay2 = document.getElementById("infoDisplay2");
+          const infoDisplay3 = document.getElementById("infoDisplay3");
+          infoDisplay3.style.display = "block";
+          infoDisplay1.innerHTML = `
+            <strong>${criticalRegion.Area.toUpperCase()}</strong> is the CRITICAL ZONE!<br>
+            <strong>Danger Score: </strong>${criticalRegion.Priority.toFixed(2)}%<br>
+            <strong>Location Type: </strong>${criticalRegion.AreaType}<br>
+            <strong>Flood Severity: </strong>${criticalRegion.Flood}/10<br>
+            <strong>Population: </strong>${criticalRegion.Population} people<br>
+            <strong>Medical Resources: </strong>${criticalRegion.Medical === "Available" ? "Present" : "None"}
+          `;
+          infoDisplay2.innerHTML = `
+            <strong><u>Estimated Resources Needed:</u></strong><br>
+              <strong>Food: </strong>${est.Food} meals<br>
+              <strong>Water: </strong>${est.Water} litres<br>
+              <strong>Shelter: </strong>${est.Shelter} people<br>
+              <strong>Medical Staff: </strong>${est.MedicalStaff} personnel
+          `;
+        } catch (error) {
+          alert("Error submitting prediction: " + error.message);
+        }
+      }
+
+        async function getUCSPath(start, goal) {
+          try {
+            const ucsDisplay1 = document.getElementById("ucsDisplay1");
+            const ucsDisplay2 = document.getElementById("ucsDisplay2");
+            const ucsDisplay3 = document.getElementById("ucsDisplay3");
+            ucsDisplay3.style.display = "block";
+            const response = await fetch("/ucsPath", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ start, goal })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+              console.log("Path:", result.path);
+              console.log("Cost:", result.cost);
+              ucsDisplay1.innerHTML = `
+                Shortest path from 
+                <br><strong style="color: green;">${result.path[0]}</strong> to <strong style = "color: red">${result.path.at(-1)}</strong>:
+                <div style="text-align: center;">
+                  <strong>${result.path.join("<br> ↓ <br>")}</strong>
+                </div>
+              `;
+              ucsDisplay2.innerHTML = `
+                Distance from 
+                <br><strong style="color: green;">${result.path[0]}</strong> to <strong style = "color: red">${result.path.at(-1)}</strong>: 
+                <br><strong>${result.cost.toFixed(2)}km</strong>
+          `;
+              // Optional: display to user
+            } else {
+              console.error("Error:", result.error);
+              alert(result.error);
+            }
+          } catch (error) {
+            console.error("Fetch failed:", error);
+          }
+        }
+
 
 
 
@@ -326,6 +436,9 @@
         });
 
         document.getElementById("submitBtn").addEventListener("click", submitPrediction);
+        document.getElementById("ucsPathBtn").addEventListener("click", () => {
+          getUCSPath(selectedRegion, criticalRegion.Area);
+        });
       });
     </script>
   </div>
