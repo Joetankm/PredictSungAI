@@ -3,11 +3,11 @@ import pandas as pd
 from sklearn.tree import DecisionTreeRegressor
 from flask_cors import CORS
 from mapPredict import train_model, estimate_resources
+from ucsAlgo import find_shortest_path
 
 app = Flask(__name__)
 CORS(app)  # <- This enables CORS for all routes
 
-# Load your model (we'll train it here for now — in deployment, you'll just load it)
 dataset = pd.read_csv("flood.csv")
 X = dataset[['Rainfall', 'Drainage', 'Topography', 'Deforestation', 'Urbanization']]
 Y = dataset['FloodRisk']
@@ -52,6 +52,21 @@ def submit():
 
     return jsonify(highest)
     
+@app.route('/ucsPath', methods=['POST'])
+def ucsPath():
+    data = request.get_json()
+    start = data.get("start")
+    goal = data.get("goal")
+
+    if not start or not goal:
+        return jsonify({"error": "Missing start or goal"}), 400
+
+    path, cost = find_shortest_path(start, goal)
+    return jsonify({
+        "path": path,
+        "cost": cost
+    })
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
