@@ -40,14 +40,22 @@
         position: sticky;
         top: 0;
         z-index: 1000;  
-        background-color: #B8E3E9; 
+        background-color: #94DEA5; 
         padding: 15px; 
         display: flex; 
         justify-content: space-between; 
         align-items: center; 
-        border: 10px solid #4F7C82; 
+        color: #003333;
+        border: 10px solid #006600; 
         border-radius: 10px;
         height: 80px
+    }
+    header button{
+      background-color: #2c8769;
+      color: #bddbe8;
+    }
+    header button:hover{
+      background-color: #006600;
     }
 
     .map-wrapper {
@@ -244,12 +252,12 @@
 
       const defaultValues = {
         "Johor": [5, "Urban", 4100000, "Available"],
-        "Pahang": [6, "Rural", 1600000, "Unavailable"],
+        "Pahang": [6, "Urban", 1600000, "Unavailable"],
         "Melaka": [3, "Urban", 1000000, "Available"],
         "Negeri Sembilan": [4, "Urban", 1150000, "Available"],
         "Selangor": [7, "Urban", 6500000, "Available"],
         "Perak": [5, "Urban", 2500000, "Available"],
-        "Kedah": [4, "Rural", 2200000, "Unavailable"],
+        "Kedah": [7, "Rural", 2200000, "Unavailable"],
         "Kelantan": [6, "Rural", 1900000, "Unavailable"],
         "Penang": [4, "Urban", 1800000, "Available"],
         "Terengganu": [5, "Rural", 1300000, "Unavailable"],
