@@ -120,11 +120,11 @@
     <h1>Flood Risk Prediction</h1>
     
     <form id="predictForm">
-      <label>Rainfall (0-10): <input type="number" step="0.01" name="Rainfall" required></label>
-      <label>Drainage Efficiency (0-10): <input type="number" step="0.01" name="Drainage" required></label>
-      <label>Topography Slope (0-10): <input type="number" step="0.01" name="Topography" required></label>
-      <label>Deforestation Index (0-10): <input type="number" step="0.01" name="Deforestation" required></label>
-      <label>Urbanization Index (0-10): <input type="number" step="0.01" name="Urbanization" required></label>
+      <label>Rainfall (mm/day): <input type="number" step="0.01" name="Rainfall" required></label>
+      <label>Elevation above sea level (m): <input type="number" step="0.01" name="Elevation" required></label>
+      <label>Forest Coverage (%): <input type="number" step="0.01" name="ForestCover" required></label>
+      <label>Urbanization Rate (%): <input type="number" step="0.01" name="Urbanization" required></label>
+      <label>Soil Moisture (%): <input type="number" step="0.01" name="SoilMoisture" required></label>
       <button type="submit">Predict</button>
     </form>
 
@@ -140,10 +140,10 @@
 
       const data = {
         Rainfall: parseFloat(form.Rainfall.value),
-        Drainage: parseFloat(form.Drainage.value),
-        Topography: parseFloat(form.Topography.value),
-        Deforestation: parseFloat(form.Deforestation.value),
+        Elevation: parseFloat(form.Elevation.value),
+        ForestCover: parseFloat(form.ForestCover.value),
         Urbanization: parseFloat(form.Urbanization.value),
+        SoilMoisture: parseFloat(form.SoilMoisture.value),
       };
 
       fetch('/predict', {
@@ -153,7 +153,8 @@
       })
       .then(res => res.json())
       .then(data => {
-        resultDiv.innerHTML = `The predicted risk of having a Flood is: <strong>${data.predicted_risk}%</strong>
+        resultDiv.innerHTML = `AI Model accuracy: <strong>${data.accuracy.toFixed(2)}%</strong>
+        <br>The predicted risk of having a Flood is: <strong>${data.predicted_risk}%</strong>
         <br><span style="font-size: 0.7em; color: #666;">*This value was calculated using an AI-driven regression tree machine learning model.</span>` || "No prediction received";
       })
       .catch(err => {
