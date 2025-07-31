@@ -73,6 +73,7 @@
         }
 
     .overlay {
+      transition: all 0.3s ease;
       position: absolute;
       background-color: #4CC9F0;
       width: 3%;
@@ -295,8 +296,8 @@
             el.style.width = "4%";
           } 
           if (el === clickedEl){
-            el.style.backgroundColor = "#ff6666";
-            el.style.border = "2px solid #cc0000";
+            el.style.backgroundColor = "green";
+            el.style.border = "2px solid #006400";
             el.style.width = "4%";
         } 
       }); 
@@ -343,8 +344,8 @@
             el.style.border = "2px solid #660000"; // darker border
             el.style.width= "4%";
           } else if (el.getAttribute("onclick").includes(`'${selectedRegion}'`)){
-            el.style.border = "2px solid #cc0000"; // Darker red
-            el.style.backgroundColor = "#ff6666";  // Red
+            el.style.border = "2px solid #006400"; // Darker red
+            el.style.backgroundColor = "green";  // Red
             el.style.width= "4%";
           } else {
             el.style.backgroundColor = ""; // reset
@@ -383,7 +384,7 @@
             const ucsDisplay1 = document.getElementById("ucsDisplay1");
             const ucsDisplay2 = document.getElementById("ucsDisplay2");
             const ucsDisplay3 = document.getElementById("ucsDisplay3");
-            ucsDisplay3.style.display = "block";
+            
             const response = await fetch("/ucsPath", {
               method: "POST",
               headers: {
@@ -395,8 +396,28 @@
             const result = await response.json();
 
             if (response.ok) {
+              ucsDisplay3.style.display = "block";
               console.log("Path:", result.path);
               console.log("Cost:", result.cost);
+
+              result.path.forEach(node => {
+                document.querySelectorAll('.overlay').forEach(el => {
+                  if (el.getAttribute("onclick").includes(`'${criticalRegion.Area}'`)){
+                    el.style.backgroundColor = "#cc0000";  // critical red
+                    el.style.border = "2px solid #660000"; // darker border
+                    el.style.width= "4%";
+                  } else if (el.getAttribute("onclick").includes(`'${selectedRegion}'`)){
+                    el.style.border = "2px solid #006400"; // Darker red
+                    el.style.backgroundColor = "green";  // Red
+                    el.style.width= "4%";
+                  } else if (el.getAttribute("onclick")?.includes(`'${node}'`)) {
+                    el.style.border = "2px solid gray"; // Dark green border
+                    el.style.backgroundColor = "darkgray";    // Green fill
+                    el.style.width = "3%";
+                  }
+                });
+              });
+
               ucsDisplay1.innerHTML = `
                 Shortest path from 
                 <br><strong style="color: green;">${result.path[0]}</strong> to <strong style = "color: red">${result.path.at(-1)}</strong>:
@@ -407,7 +428,11 @@
               ucsDisplay2.innerHTML = `
                 Distance from 
                 <br><strong style="color: green;">${result.path[0]}</strong> to <strong style = "color: red">${result.path.at(-1)}</strong>: 
-                <br><strong>${result.cost.toFixed(2)}km</strong>
+                <br><strong>${result.cost.toFixed(2)}km</strong><br><br>
+                Time taken if travelling at speed of:
+                <br><strong>30 km/h:</strong> ${Math.floor(result.cost / 30)}h ${Math.round(((result.cost / 30) % 1) * 60)}m
+                <br><strong>60 km/h:</strong> ${Math.floor(result.cost / 60)}h ${Math.round(((result.cost / 60) % 1) * 60)}m
+                <br><strong>90 km/h:</strong> ${Math.floor(result.cost / 90)}h ${Math.round(((result.cost / 90) % 1) * 60)}m
           `;
               // Optional: display to user
             } else {
