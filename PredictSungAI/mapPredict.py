@@ -36,7 +36,7 @@ def estimate_resources(region):
     food = max(1, population // 1000) * (flood // 2 + 1)
     water = max(1, population // 800) * (flood // 2 + 1)
     shelter = max(1, population // 2000) * (flood // 2 + 1)
-    med_staff = 1 if medical else max(1, population // 1500)
+    med_staff = 100 if medical else max(1, population // 1500)
 
     return {
         "Food": food,
