@@ -3,9 +3,10 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
   <title>Flood Risk Predictor</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='Icon.png') }}">
   <style>
     body {
-        background-image: url("{{ url_for('static', filename='backgroundimg.jpg') }}");
+        background-image: url("{{ url_for('static', filename='backgroundimg2.png') }}");
         background-size: cover; /* Cover entire screen */
         background-repeat: repeat-y; /* Prevent repeating */
         background-position: center; /* Center the image */
@@ -14,23 +15,49 @@
     header{
         position: sticky;
         top: 0;
-        z-index: 1000;  
-        background-color: #94DEA5; 
+        z-index: 1000; 
+        backdrop-filter: blur(5px); 
         padding: 15px; 
         display: flex; 
         justify-content: space-between; 
         align-items: center; 
         color: #003333;
-        border: 10px solid #006600; 
         border-radius: 10px;
-        height: 80px
+        height: 50px;
     }
-    header button{
-      background-color: #2c8769;
-      color: #bddbe8;
+    .headBtn{
+      font-weight: bold;
+      transition: all 0.4s ease;
+      background: none;
+      color: #003333;
     }
-    header button:hover{
-      background-color: #006600;
+    .headBtn:hover{
+      color: white;
+      background: none;
+    }
+
+    .headBtn2{
+      font-weight: bold;
+      transition: all 0.4s ease;
+      background: none;
+      color: gray;
+      margin: 0;
+      border-radius: 100px;
+    }
+    .headBtn2:hover{
+      background: lightgray;
+    }
+
+    .SignupBtn{
+      transition: all 0.4s ease;
+      background-color: white; 
+      border-radius: 100px; 
+      color: #003333;
+    }
+
+    .SignupBtn:hover{
+      color: white;
+      background-color: #003333;
     }
   
     .container {
@@ -56,20 +83,25 @@
         font-size: 20px;
       }
       button {
-        font-size: 20px;
+        font-size: 14px;
         width: 100%;
       }
       header{
-        height: 100px;
-        display: flex; 
-        flex-direction: column; 
-        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        height: auto;
+        padding: 10px;
       }
       .headerBtn{
-        display: flex; 
-        flex-direction: row; 
-        margin: auto;
+        display: none;
       }
+
+  .headBtn, .SignupBtn {
+    padding: 6px 10px;
+  }
+
       
     }
 
@@ -110,12 +142,33 @@
 </head>
 <body>
   <header>
-    <h2 style="margin: 0; font-family: Arial, Helvetica, sans-serif;">PredictSungAI</h2>
+    <div style="display: flex; flex-direction: row;align-items: center;">
+      <img src="{{ url_for('static', filename='Icon.png') }}" style="height: 40px;">
+      <h4 style="margin: 0; font-family: Arial, Helvetica, sans-serif;">PredictSungAI</h2>
+    </div>
+    
     <div class="headerBtn">
-      <button onclick="location.href='/'" style="margin-right: 10px;">Predict Page</button>
-      <button onclick="location.href='/path'">Map View</button>
+      <button class="headBtn">Home</button>
+      <button class="headBtn">Dashboard</button>
+      <button class="headBtn">Resources</button>
+      <button class="headBtn">About</button>
+      <button class="headBtn">Contact</button>
+    </div>
+
+    <div class="headerBtnRight">
+      <button class="headBtn">Login</button>
+      <button class="SignupBtn" >Sign Up</button>
     </div>
   </header>
+
+    <div class="secondaryHeader" style="display: flex; flex-direction: row; align-items: center; justify-content: center; position: sticky; top: 13%;">
+      <div class="headerBtn" style="height: 30px; backdrop-filter: blur(5px); background-color: rgba(0,0,0,0.7); padding: 10px; border-radius: 50px; display: flex; align-items: center;">
+        <button style="background-color: lightgray;" class="headBtn2" onclick="location.href='/'">Predict Page</button>
+        <button class="headBtn2" onclick="location.href='/path'">Map View</button>
+      </div>
+    </div>
+
+
   <div class="container">
     <h1>Flood Risk Prediction</h1>
     
