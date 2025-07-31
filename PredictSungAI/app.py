@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, render_template
 import pandas as pd
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import train_test_split
 from flask_cors import CORS
 from mapPredict import train_model, estimate_resources
 from ucsAlgo import find_shortest_path
@@ -9,11 +10,24 @@ app = Flask(__name__)
 CORS(app)  # <- This enables CORS for all routes
 
 dataset = pd.read_csv("flood.csv")
-X = dataset[['Rainfall', 'Drainage', 'Topography', 'Deforestation', 'Urbanization']]
+X = dataset[['Rainfall', 'Elevation', 'ForestCover', 'Urbanization', 'SoilMoisture']]
 Y = dataset['FloodRisk']
 
+x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=1)
+
+data_split = {
+    'train': {'attributes': x_train, 'target': y_train},
+    'test': {'attributes': x_test, 'target': y_test}
+}
+
 model = DecisionTreeRegressor(max_depth=5)
-model.fit(X, Y)
+## training
+model.fit(data_split['train']['attributes'], data_split['train']['target'])
+
+## predicting
+predicts = model.predict(data_split['test']['attributes'])
+
+accuracy = model.score(data_split['test']['attributes'], data_split['test']['target'])*100
 
 @app.route('/')
 def home():
@@ -27,8 +41,8 @@ def map_view():
 def predict():
     data = request.json
     input_df = pd.DataFrame([data])
-    prediction = model.predict(input_df)[0]*100
-    return jsonify({'predicted_risk': round(prediction, 2)})
+    prediction = model.predict(input_df)[0]
+    return jsonify({'predicted_risk': round(prediction, 2), 'accuracy': accuracy})
 
 
 model2=train_model()
