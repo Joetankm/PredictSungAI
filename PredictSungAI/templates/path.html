@@ -14,6 +14,11 @@
       background-position: center;
     }
 
+    p {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    
+
     input[type="text"],
     input[type="number"], 
     select {
@@ -143,6 +148,7 @@
       .headerBtn{
         display: none;
       }
+
         
   .headBtn, .SignupBtn {
     padding: 6px 10px;
@@ -173,6 +179,39 @@
     button:hover {
       background-color: #0056b3;
     }
+
+    .showDetailBtn{
+      transition: all ease 0.4s;
+      align-self: right; 
+      width: 200px; 
+      border-radius: 100px; 
+      font-weight: bold;
+      backdrop-filter: blur(5px); 
+      background-color: rgba(0,0,0,0.7);
+    }
+    .showDetailBtn:hover{
+      background-color: rgba(128, 128, 128, 0.7);
+    }
+
+    .btmBtn{
+      background-color: rgba(0,0,0, 1);
+      transition: all ease 0.4s;
+      font-weight: bold;
+    }
+
+    .btmBtn:hover{
+      background-color:  rgba(64, 64, 64, 0.7);
+    }
+
+    #displayBox::-webkit-scrollbar {
+  width: 6px;
+}
+
+#displayBox::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 3px;
+}
+
   </style>
 </head>
 <body>
@@ -196,13 +235,31 @@
     </div>
   </header>
 
-    <div class="secondaryHeader" style="display: flex; flex-direction: row; align-items: center; justify-content: center; position: sticky; top: 13%;z-index: 9999;">
-      <div class="headerBtn" style="margin: 0; height: 30px; backdrop-filter: blur(5px); background-color: rgba(0,0,0,0.7); padding: 10px; border-radius: 50px; display: flex; align-items: center;">
-        <button class="headBtn2" onclick="location.href='/'">Predict Page</button>
-        <button style="background-color: lightgray;" class="headBtn2" onclick="location.href='/path'">Map View</button>
-      </div>
+  <div class="secondaryHeader" style="display: flex; flex-direction: row; align-items: center; justify-content: center; position: sticky; top: 13%;z-index: 9999;">
+    <div class="headerBtn" style="margin: 0; height: 30px; backdrop-filter: blur(5px); background-color: rgba(0,0,0,0.7); padding: 10px; border-radius: 50px; display: flex; align-items: center;">
+      <button class="headBtn2" onclick="location.href='/'">Predict Page</button>
+      <button style="background-color: lightgray;" class="headBtn2" onclick="location.href='/path'">Map View</button>
     </div>
+  </div>
 
+
+  <div class="overlayBtn" style="display: flex;flex-direction: column; right: 3%; bottom: 10%; position:fixed; align-items:flex-end; z-index: 9999;">
+    <div id="displayBox" style="background-color: white; border-radius: 20px; border: 2px solid #333; padding: 20px; max-height: 300px; overflow-y: auto;">
+      <div style="display: flex; flex-direction: row; gap: 20%; justify-content: center;">
+          <p id="infoDisplay1" style="font-size: large; color: red; text-align: left;"></p>
+          <p id="infoDisplay2" style="font-size: large; color: red; text-align: left;"></p>
+      </div>
+      <span id = "infoDisplay3" style="font-size: 0.7em; color: #666; display: none; text-align: center;">*This value was calculated using an AI-driven random forest machine learning model.</span>
+      
+      <div style="display: flex; flex-direction: row; gap: 10%; justify-content: center; ">
+        <p id="ucsDisplay1" style="font-size: large; text-align: left;"></p>
+        <p id="ucsDisplay2" style="font-size: large; text-align: left;"></p>
+      </div>
+      <span id = "ucsDisplay3" style="text-align: center; font-size: 0.7em; color: #666; display: none;">*This path was generated using UCS, an AI-driven search algorithm focused on minimizing cost (distance).</span>
+
+    </div>
+    <button id="showDetailBtn" class="showDetailBtn" onclick="displayInfo()">Show details ▲</button>
+  </div>
 
   <div class="container">
     <h1>Map View</h1>
@@ -277,19 +334,9 @@
         </select>
       </label>
 
-      <div style="display: flex; flex-direction: row; gap: 20%; justify-content: center; ">
-        <p id="infoDisplay1" style="font-size: large; color: red; text-align: left;"></p>
-        <p id="infoDisplay2" style="font-size: large; color: red; text-align: left;"></p>
-      </div>
-      <span id = "infoDisplay3" style="font-size: 0.7em; color: #666; display: none;">*This value was calculated using an AI-driven random forest machine learning model.</span>
-      <div style="display: flex; flex-direction: row; gap: 10%; justify-content: center; ">
-        <p id="ucsDisplay1" style="font-size: large; text-align: left;"></p>
-        <p id="ucsDisplay2" style="font-size: large; text-align: left;"></p>
-      </div>
-      <span id = "ucsDisplay3" style="font-size: 0.7em; color: #666; display: none;">*This path was generated using UCS, an AI-driven search algorithm focused on minimizing cost (distance).</span>
-      <button type="submit">Save</button>
-      <button type="button" id="submitBtn">Submit for Prediction</button>
-      <button type="button" id="ucsPathBtn" style="display: none;">Predict Path</button>
+      <button class="btmBtn" type="submit" style="border-radius: 100px;">Save</button>
+      <button class="btmBtn" type="button" id="submitBtn" style="border-radius: 100px;">Submit for Prediction</button>
+      <button class="btmBtn" type="button" id="ucsPathBtn" style="display: none; border-radius: 100px;">Predict Path</button>
     </form>
 
     <script>
@@ -368,6 +415,21 @@
         }
       }
 
+      function displayInfo() {
+        const btn = document.getElementById('showDetailBtn');
+        const displayBox = document.getElementById('displayBox')
+        if (btn.innerHTML === "Show details ▲") {
+          btn.textContent = "Show less details ▼";
+          btn.style.backgroundColor = "rgba(64, 64, 64, 0.7)"
+          displayBox.style.display = "block";
+          
+        } else {
+          btn.textContent = "Show details ▲";
+          displayBox.style.display = "none";
+          btn.style.backgroundColor = ""
+        }
+      }
+
       async function submitPrediction(e) {
         e.preventDefault();
         const ucsPathBtn = document.getElementById("ucsPathBtn").style.display="inline";
@@ -409,6 +471,17 @@
           const infoDisplay1 = document.getElementById("infoDisplay1");
           const infoDisplay2 = document.getElementById("infoDisplay2");
           const infoDisplay3 = document.getElementById("infoDisplay3");
+
+          const showDetailBtn= document.getElementById("showDetailBtn");
+          showDetailBtn.textContent = "Show less details ▼"
+          showDetailBtn.style.backgroundColor = "rgba(64, 64, 64, 0.7)"
+          const displayBox = document.getElementById('displayBox')
+          displayBox.style.display = "block"
+          displayBox.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          })
+
           infoDisplay3.style.display = "block";
           infoDisplay1.innerHTML = `
             <strong>${criticalRegion.Area.toUpperCase()}</strong> is the CRITICAL ZONE!<br>
@@ -480,12 +553,24 @@
                 Distance from 
                 <br><strong style="color: green;">${result.path[0]}</strong> to <strong style = "color: red">${result.path.at(-1)}</strong>: 
                 <br><strong>${result.cost.toFixed(2)}km</strong><br><br>
-                Time taken if travelling at speed of:
+                Time taken if 
+                <br>travelling at speed of:
                 <br><strong>30 km/h:</strong> ${Math.floor(result.cost / 30)}h ${Math.round(((result.cost / 30) % 1) * 60)}m
                 <br><strong>60 km/h:</strong> ${Math.floor(result.cost / 60)}h ${Math.round(((result.cost / 60) % 1) * 60)}m
                 <br><strong>90 km/h:</strong> ${Math.floor(result.cost / 90)}h ${Math.round(((result.cost / 90) % 1) * 60)}m
           `;
-              // Optional: display to user
+                
+                const displayBox = document.getElementById('displayBox')
+                displayBox.style.display = "block"
+                const showDetailBtn= document.getElementById("showDetailBtn");
+                showDetailBtn.textContent = "Show less details ▼"
+                showDetailBtn.style.backgroundColor = "rgba(64, 64, 64, 0.7)"
+                displayBox.scrollTo({
+                  top: 700,
+                  behavior: "smooth"
+                })
+
+
             } else {
               console.error("Error:", result.error);
               alert(result.error);
@@ -499,7 +584,10 @@
 
 
       document.addEventListener('DOMContentLoaded', () => {
+        const displayBox = document.getElementById('displayBox')
+        displayBox.style.display = "none"
         initializeDefaultRegions();
+        
 
         const form = document.getElementById('pathForm');
         form.addEventListener('submit', function (e) {
