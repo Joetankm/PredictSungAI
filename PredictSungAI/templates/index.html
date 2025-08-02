@@ -120,13 +120,13 @@
       box-sizing: border-box;
     }
     button {
+      border-radius: 100px;
+      background-color: black;
       padding: 10px 20px;
-      background-color: #007bff;
       color: white;
       border: none;
       margin-top: 10px;
       cursor: pointer;
-      border-radius: 5px;
     }
     button:hover {
       background-color: #0056b3;
@@ -137,6 +137,16 @@
       color: #007700;
       text-align: left;
       font-weight: bold;
+    }
+
+    .btmBtn{
+      background-color: rgba(0,0,0, 1);
+      transition: all ease 0.4s;
+      font-weight: bold;
+    }
+
+    .btmBtn:hover{
+      background-color:  rgba(64, 64, 64, 0.7);
     }
   </style>
 </head>
@@ -178,7 +188,7 @@
       <label>Forest Coverage (%): <input type="number" step="0.01" name="ForestCover" required></label>
       <label>Urbanization Rate (%): <input type="number" step="0.01" name="Urbanization" required></label>
       <label>Soil Moisture (%): <input type="number" step="0.01" name="SoilMoisture" required></label>
-      <button type="submit">Predict</button>
+      <button class="btmBtn" type="submit">Predict</button>
     </form>
 
     <h2>Prediction Result:</h2>
