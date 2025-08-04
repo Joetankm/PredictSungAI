@@ -45,7 +45,7 @@ def predict():
     return jsonify({'predicted_risk': round(prediction, 2), 'accuracy': accuracy})
 
 
-model2=train_model()
+model2, accuracy2=train_model()
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -64,7 +64,7 @@ def submit():
         if highest is None or priority > highest['Priority']:
             highest = region
 
-    return jsonify(highest)
+    return jsonify({'highest': highest, 'accuracy': accuracy2})
     
 @app.route('/ucsPath', methods=['POST'])
 def ucsPath():
