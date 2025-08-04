@@ -391,7 +391,7 @@
           el.style.backgroundColor = "";
           el.style.border = "";
           el.style.width = "";
-          if (criticalRegion.highest && el.getAttribute("onclick").includes(`'${criticalRegion.highest.Area}'`)) {
+          if (criticalRegion && el.getAttribute("onclick").includes(`'${criticalRegion.highest.Area}'`)) {
             el.style.backgroundColor = "#cc0000";  // critical red
             el.style.border = "2px solid #660000";
             el.style.width = "4%";
@@ -540,7 +540,7 @@
                     el.style.width= "4%";
                   } else if (el.getAttribute("onclick").includes(`'${selectedRegion}'`)){
                     el.style.border = "2px solid #006400"; // Darker red
-                    el.style.backgroundColor = "green";  // Red
+                    el.style.backgroundColor = "green";  
                     el.style.width= "4%";
                   } else if (el.getAttribute("onclick")?.includes(`'${node}'`)) {
                     el.style.border = "2px solid gray"; // Dark green border
