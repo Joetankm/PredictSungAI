@@ -245,14 +245,16 @@
 
   <div class="overlayBtn" style="display: flex;flex-direction: column; right: 3%; bottom: 10%; position:fixed; align-items:flex-end; z-index: 9999;">
     <div id="displayBox" style="background-color: white; border-radius: 20px; border: 2px solid #333; padding: 20px; max-height: 300px; overflow-y: auto;">
+      <span style="text-align: center; font-family: Arial, Helvetica, sans-serif;display: block; font-weight: bold;"><u>Critical Region</u></span>
       <div style="display: flex; flex-direction: row; gap: 20%; justify-content: center;">
           <p id="infoDisplay1" style="font-size: large; color: red; text-align: left;"></p>
           <p id="infoDisplay2" style="font-size: large; color: red; text-align: left;"></p>
       </div>
+      <span id="infoDisplay4" style="text-align: center; color: #007700; font-family: Arial, Helvetica, sans-serif;display: block;"></span>
       <span id = "infoDisplay3" style="font-size: 0.7em; color: #666; display: none; text-align: center;">*This value was calculated using an AI-driven random forest machine learning model.</span>
       <hr style="height: 3px; background-color: black;">
+      <span id="ucsDisplay4" style="text-align: center; font-family: Arial, Helvetica, sans-serif;display: none;font-weight: bold;"><u>Pathfinding</u></span>
       <div style="display: flex; flex-direction: row; gap: 10%; justify-content: center; ">
-        
         <p id="ucsDisplay1" style="font-size: large; text-align: left;"></p>
         <p id="ucsDisplay2" style="font-size: large; text-align: left;"></p>
       </div>
@@ -389,7 +391,7 @@
           el.style.backgroundColor = "";
           el.style.border = "";
           el.style.width = "";
-          if (criticalRegion && el.getAttribute("onclick").includes(`'${criticalRegion.Area}'`)) {
+          if (criticalRegion.highest && el.getAttribute("onclick").includes(`'${criticalRegion.highest.Area}'`)) {
             el.style.backgroundColor = "#cc0000";  // critical red
             el.style.border = "2px solid #660000";
             el.style.width = "4%";
@@ -451,9 +453,9 @@
           });
 
           criticalRegion = await response.json();
-          const est = criticalRegion.Estimates;
+          const est = criticalRegion.highest.Estimates;
           document.querySelectorAll('.overlay').forEach(el => {
-          if (el.getAttribute("onclick").includes(`'${criticalRegion.Area}'`)) {
+          if (el.getAttribute("onclick").includes(`'${criticalRegion.highest.Area}'`)) {
             el.style.backgroundColor = "#cc0000";  // critical red
             el.style.border = "2px solid #660000"; // darker border
             el.style.width= "4%";
@@ -472,6 +474,7 @@
           const infoDisplay1 = document.getElementById("infoDisplay1");
           const infoDisplay2 = document.getElementById("infoDisplay2");
           const infoDisplay3 = document.getElementById("infoDisplay3");
+          const infoDisplay4 = document.getElementById("infoDisplay4");
 
           const showDetailBtn= document.getElementById("showDetailBtn");
           showDetailBtn.textContent = "Show less details ▼"
@@ -484,13 +487,14 @@
           })
 
           infoDisplay3.style.display = "block";
+          infoDisplay4.innerHTML = `AI Model accuracy: <strong>${criticalRegion.accuracy.toFixed(2)}%</strong>`
           infoDisplay1.innerHTML = `
-            <strong>${criticalRegion.Area.toUpperCase()}</strong> is the CRITICAL ZONE!<br>
-            <strong>Danger Score: </strong>${criticalRegion.Priority.toFixed(2)}%<br>
-            <strong>Location Type: </strong>${criticalRegion.AreaType}<br>
-            <strong>Flood Severity: </strong>${criticalRegion.Flood}/10<br>
-            <strong>Population: </strong>${criticalRegion.Population} people<br>
-            <strong>Medical Resources: </strong>${criticalRegion.Medical === "Available" ? "Present" : "None"}
+            <strong>${criticalRegion.highest.Area.toUpperCase()}</strong> is the CRITICAL ZONE!<br>
+            <strong>Danger Score: </strong>${criticalRegion.highest.Priority.toFixed(2)}%<br>
+            <strong>Location Type: </strong>${criticalRegion.highest.AreaType}<br>
+            <strong>Flood Severity: </strong>${criticalRegion.highest.Flood}/10<br>
+            <strong>Population: </strong>${criticalRegion.highest.Population} people<br>
+            <strong>Medical Resources: </strong>${criticalRegion.highest.Medical === "Available" ? "Present" : "None"}
           `;
           infoDisplay2.innerHTML = `
             <strong><u>Estimated Resources Needed:</u></strong><br>
@@ -509,6 +513,7 @@
             const ucsDisplay1 = document.getElementById("ucsDisplay1");
             const ucsDisplay2 = document.getElementById("ucsDisplay2");
             const ucsDisplay3 = document.getElementById("ucsDisplay3");
+            const ucsDisplay4 = document.getElementById("ucsDisplay4");
             
             const response = await fetch("/ucsPath", {
               method: "POST",
@@ -522,12 +527,14 @@
 
             if (response.ok) {
               ucsDisplay3.style.display = "block";
+              ucsDisplay4.style.display = "block";
+              
               console.log("Path:", result.path);
               console.log("Cost:", result.cost);
 
               result.path.forEach(node => {
                 document.querySelectorAll('.overlay').forEach(el => {
-                  if (el.getAttribute("onclick").includes(`'${criticalRegion.Area}'`)){
+                  if (el.getAttribute("onclick").includes(`'${criticalRegion.highest.Area}'`)){
                     el.style.backgroundColor = "#cc0000";  // critical red
                     el.style.border = "2px solid #660000"; // darker border
                     el.style.width= "4%";
@@ -610,7 +617,7 @@
 
         document.getElementById("submitBtn").addEventListener("click", submitPrediction);
         document.getElementById("ucsPathBtn").addEventListener("click", () => {
-          getUCSPath(selectedRegion, criticalRegion.Area);
+          getUCSPath(selectedRegion, criticalRegion.highest.Area);
         });
       });
     </script>
