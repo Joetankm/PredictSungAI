@@ -23,9 +23,14 @@ def train_model():
     X = np.array([d[:4] for d in data])
     Y = np.array([d[4] for d in data])
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42)
+    data_split = {
+    'train': {'attributes': X_train, 'target': Y_train},
+    'test': {'attributes': X_test, 'target': Y_test}
+    }
     model = RandomForestRegressor(n_estimators=100, max_depth=3, random_state=42)
-    model.fit(X_train, Y_train)
-    return model
+    model.fit(data_split['train']['attributes'], data_split['train']['target'])    
+    accuracy = model.score(data_split['test']['attributes'], data_split['test']['target'])*100
+    return model, accuracy
 
 def estimate_resources(region):
     flood = int(region['Flood'])
