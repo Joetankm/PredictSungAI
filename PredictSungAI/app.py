@@ -33,9 +33,25 @@ accuracy = model.score(data_split['test']['attributes'], data_split['test']['tar
 def home():
     return render_template("index.html")
 
-@app.route('/path')  # This must match what you're trying to open
+@app.route('/path')  
 def map_view():
-    return render_template('path.html')  # Make sure map.html exists
+    return render_template('path.html') 
+
+@app.route('/about')  
+def about_view():
+    return render_template('about.html') 
+
+@app.route('/contact')  
+def contact_view():
+    return render_template('contact.html')  
+
+@app.route('/resources')
+def resources_view():
+    return render_template('resources.html')
+
+@app.route('/faq')
+def faq_view():
+    return render_template('faq.html')
 
 @app.route('/predict', methods=['POST'])
 def predict():
