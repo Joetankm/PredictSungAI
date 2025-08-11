@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+  <title>Flood Risk Predictor</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='Icon.png') }}">
+  <style>
+    body {
+        background-image: url("{{ url_for('static', filename='backgroundimg2.png') }}");
+        background-size: cover; /* Cover entire screen */
+        background-repeat: repeat-y; /* Prevent repeating */
+        background-position: center; /* Center the image */
+    }
+
+    header{
+        position: sticky;
+        top: 0;
+        z-index: 1000; 
+        backdrop-filter: blur(5px); 
+        padding: 15px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        color: #003333;
+        border-radius: 10px;
+        height: 50px;
+    }
+    .headBtn{
+      font-weight: bold;
+      transition: all 0.4s ease;
+      background: none;
+      color: #003333;
+    }
+    .headBtn:hover{
+      color: white;
+      background: none;
+    }
+
+    .headBtn2{
+      font-weight: bold;
+      transition: all 0.4s ease;
+      background: none;
+      color: gray;
+      margin: 0;
+      border-radius: 100px;
+    }
+    .headBtn2:hover{
+      background: lightgray;
+    }
+
+    .SignupBtn{
+      transition: all 0.4s ease;
+      background-color: white; 
+      border-radius: 100px; 
+      color: #003333;
+    }
+
+    .SignupBtn:hover{
+      color: white;
+      background-color: #003333;
+    }
+  
+    .container {
+      font-family: Arial, sans-serif;
+        max-width: 70%;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    
+    button {
+      border-radius: 100px;
+      background-color: black;
+      padding: 10px 20px;
+      color: white;
+      border: none;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    
+    p{
+        font-size: large;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; flex-direction: row;align-items: center;">
+      <img src="{{ url_for('static', filename='Icon.png') }}" style="height: 40px;">
+      <h4 style="margin: 0; font-family: Arial, Helvetica, sans-serif;">PredictSungAI</h2>
+    </div>
+    
+    <div class="headerBtn">
+      <button class="headBtn" onclick="location.href='/'">Home</button>
+      <button class="headBtn" onclick="location.href='/faq'">FAQ</button>
+      <button class="headBtn" onclick="location.href='/resources'">Resources</button>
+      <button class="headBtn" onclick="location.href='/about'">About</button>
+      <button class="headBtn" onclick="location.href='/contact'">Contact</button>
+    </div>
+
+    <div class="headerBtnRight">
+      <button class="headBtn">Login</button>
+      <button class="SignupBtn" >Sign Up</button>
+    </div>
+  </header>
+
+  <div class="container" style="text-align: justify;">
+    <h1>Who We Are & Our Mission</h1>
+    <p>We are a group of Sunway University computer science students who are passionate about technology and social impact. Our quest started with simple question: How might artificial intelligence be used to improve flood resilience and safety in communities? Our AI-powered platform was developed in response to that question with the goals of anticipating, preparing, and safeguarding.</p>
+    <p>Our mission is to use innovation and artificial intelligence to tackle real-world problems, starting with one of the most devastating natural disasters: flooding. We aim to empower decision-makers, emergency responders, and communities with accurate, timely information to take life-saving action.</p>
+    
+    <br>
+    <br>
+    <h1>How Our Platform Support SDG</h1>
+    <p><strong>SDG 1 - No Poverty:</strong>By reducing the economic impact of floods and helping vulnerable communities protect their livelihoods.</p>
+    <p><strong>SDG 3 - Good Health and Well-being:</strong>By safeguarding human life and reducing disaster-related injuries.</p>
+    <p><strong>SDG 11 - Sustainable Cities and Communities:</strong>By helping cities plan and respond to floods effectively.</p>
+    <p><strong>SDG 13 - Climate Action:</strong>By providing data-driven tools to address climate-related disasters.</p>
+    
+    <br>
+    <br>
+    <h1>What We Do</h1>
+    <p>Our platform delivers a complete flood response solution:</p>
+    <p><strong>1. Flood Risk Prediction - </strong>Uses five critical environmental inputs to forecast flood likelihood.</p>
+    <p><strong>2. Priority Area Identification - </strong>Determines which state or region needs urgent attention.</p>
+    <p><strong>3. Resource Allocation Suggestions - </strong>Recommends suitable aid based on severity and needs.</p>
+    <p><strong>4. Pathfinding AI - </strong>Plots the safest, fastest routes for delivering resources and emergency services.</p>
+
+    <br>
+    <br>
+    <h1>Why Flood Prediction Matters for a Safer Future</h1>
+    <p>Floods have claimed over 93,000 lives and caused more than USD 490 billion in damages globally from 2001 to 2018. The impact is not just physical, it also disrupts livelihoods, displaces families, and pushes communities deeper into poverty. By predicting floods and guiding emergency action, we aim to save lives, reduce losses, and build resilience.</p>
+    <p>We envision a world where AI-driven early warning systems are standard tools for disaster resilience. By combining academic knowledge, innovative thinking, and the UN’s Sustainable Development Goals, we are building solutions that matter not only for today, but also for the future.</p>
+
+  </div>
+</body>
+</html>
