@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+  <title>Flood Risk Predictor</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='Icon.png') }}">
+  <style>
+    body {
+        background-image: url("{{ url_for('static', filename='backgroundimg2.png') }}");
+        background-size: cover; /* Cover entire screen */
+        background-repeat: repeat-y; /* Prevent repeating */
+        background-position: center; /* Center the image */
+    }
+
+    header{
+        position: sticky;
+        top: 0;
+        z-index: 1000; 
+        backdrop-filter: blur(5px); 
+        padding: 15px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        color: #003333;
+        border-radius: 10px;
+        height: 50px;
+    }
+    .headBtn{
+      font-weight: bold;
+      transition: all 0.4s ease;
+      background: none;
+      color: #003333;
+    }
+    .headBtn:hover{
+      color: white;
+      background: none;
+    }
+
+    .headBtn2{
+      font-weight: bold;
+      transition: all 0.4s ease;
+      background: none;
+      color: gray;
+      margin: 0;
+      border-radius: 100px;
+    }
+    .headBtn2:hover{
+      background: lightgray;
+    }
+
+    .SignupBtn{
+      transition: all 0.4s ease;
+      background-color: white; 
+      border-radius: 100px; 
+      color: #003333;
+    }
+
+    .SignupBtn:hover{
+      color: white;
+      background-color: #003333;
+    }
+  
+    .container {
+      font-family: Arial, sans-serif;
+        max-width: 70%;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    
+    button {
+      border-radius: 100px;
+      background-color: black;
+      padding: 10px 20px;
+      color: white;
+      border: none;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    
+    p{
+        font-size: large;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; flex-direction: row;align-items: center;">
+      <img src="{{ url_for('static', filename='Icon.png') }}" style="height: 40px;">
+      <h4 style="margin: 0; font-family: Arial, Helvetica, sans-serif;">PredictSungAI</h2>
+    </div>
+    
+    <div class="headerBtn">
+      <button class="headBtn" onclick="location.href='/'">Home</button>
+      <button class="headBtn" onclick="location.href='/faq'">FAQ</button>
+      <button class="headBtn" onclick="location.href='/resources'">Resources</button>
+      <button class="headBtn" onclick="location.href='/about'">About</button>
+      <button class="headBtn" onclick="location.href='/contact'">Contact</button>
+    </div>
+
+    <div class="headerBtnRight">
+      <button class="headBtn">Login</button>
+      <button class="SignupBtn" >Sign Up</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>Source Code</h1>
+    <p style="text-align: center;">GitHub: <a href="https://github.com/Joetankm/PredictSungAI" target="_blank" rel="noopener noreferrer">github.com/Joetankm/PredictSungAI</a></p>
+    
+    <h1>References</h1>
+    <p>Al Jazeera. (2025, January 23). Death toll in deadly Indonesia flooding, landslides rises to 21. <a href="https://www.aljazeera.com/gallery/2025/1/23/death-toll-in-deadly-indonesia-flooding-landslides-rises-to-21" target="_blank" rel="noopener noreferrer">https://www.aljazeera.com/gallery/2025/1/23/death-toll-in-deadly-indonesia-flooding-landslides-rises-to-21</a></p>
+
+    <p>Asian Development Bank. (2024). Asia-Pacific disaster report 2024: Enhancing resilience through early warning systems. <a href="https://doi.org/10.22617/FLS240103" target="_blank" rel="noopener noreferrer">https://doi.org/10.22617/FLS240103</a></p>
+
+    <p>Amin, M. Z. M. (2025, February). Impacts of climate change and extreme weather events in Malaysia [PowerPoint slides]. Asian Disaster Reduction Centre. <a href="https://www.adrc.asia/sentanpro/202502/documents/4th_06_MYS_PPT.pdf" target="_blank" rel="noopener noreferrer">https://www.adrc.asia/sentanpro/202502/documents/4th_06_MYS_PPT.pdf</a></p>
+
+    <p>Didier, T., & Lee Sheah Tsan, K. (2024). MANAGING FLOOD RISKS: Leveraging Finance for Business Resilience in Malaysia. In World Bank and Bank Negara Report. World Bank Group. <a href="https://www.bnm.gov.my/documents/20124/3770663/wb-bnm-flood-risks24.pdf" target="_blank" rel="noopener noreferrer">https://www.bnm.gov.my/documents/20124/3770663/wb-bnm-flood-risks24.pdf</a></p>
+
+    <p>Global Facility for Disaster Reduction and Recovery. (2025, January). The road to resilience: Indonesia’s disaster risk management journey. <a href="https://www.gfdrr.org/en/feature-story/road-resilience-indonesias-disaster-risk-management-journey-1" target="_blank" rel="noopener noreferrer">https://www.gfdrr.org/en/feature-story/road-resilience-indonesias-disaster-risk-management-journey-1</a></p>
+
+    <p>Lee, J., Perera, D., Glickman, T., & Taing, L. (2020). Water-related disasters and their health impacts: A global review. Progress in Disaster Science, 8, 100123. <a href="https://doi.org/10.1016/j.pdisas.2020.100123" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.pdisas.2020.100123</a></p>
+
+    <p>Ministry of Economy Malaysia. (n.d.). Twelfth Malaysia Plan (RMKe-12). <a href="https://rmke12.ekonomi.gov.my/en" target="_blank" rel="noopener noreferrer">https://rmke12.ekonomi.gov.my/en</a></p>
+
+    <p>New Straits Times. (2025, August 1). Govt to spend RM20b on flood mitigation projects under 13MP. <a href="https://www.nst.com.my/news/nation/2025/08/1253682/govt-spend-rm20b-flood-mitigation-projects-under-13mp" target="_blank" rel="noopener noreferrer">https://www.nst.com.my/news/nation/2025/08/1253682/govt-spend-rm20b-flood-mitigation-projects-under-13mp</a></p>
+
+    <p>Orissa International. (2024, April). Philippines allocates USD 4.63 billion for flood control in 2025 budget. <a href="https://www.orissa-international.com/business-news/philippines-allocates-usd-4-63-billion-for-flood-control-in-2025-budget/" target="_blank" rel="noopener noreferrer">https://www.orissa-international.com/business-news/philippines-allocates-usd-4-63-billion-for-flood-control-in-2025-budget/</a></p>
+
+    <p>Project Pro. (2025, July 11). How Much Does it Cost to Build an AI System? ProjectPro. <a href="https://www.projectpro.io/article/cost-of-ai/1087" target="_blank" rel="noopener noreferrer">https://www.projectpro.io/article/cost-of-ai/1087</a></p>
+
+    <p>UNDP Accelerator Labs. (2024). In the current: Insights from small-scale initiatives on flood mitigation. United Nations Development Programme. <a href="https://www.undp.org/acceleratorlabs/publications/current-insights-small-scale-initiatives-flood-mitigation" target="_blank" rel="noopener noreferrer">https://www.undp.org/acceleratorlabs/publications/current-insights-small-scale-initiatives-flood-mitigation</a></p>
+
+    <p>World Bank Group. (n.d.). Philippines: Vulnerability. Climate Knowledge Portal. <a href="https://climateknowledgeportal.worldbank.org/country/philippines/vulnerability" target="_blank" rel="noopener noreferrer">https://climateknowledgeportal.worldbank.org/country/philippines/vulnerability</a></p>
+
+    <p>World Bank Group. (2021). Philippines: Climate risk country profile. <a href="https://climateknowledgeportal.worldbank.org/sites/default/files/2021-08/15852-WB_Philippines%20Country%20Profile-WEB.pdf" target="_blank" rel="noopener noreferrer">https://climateknowledgeportal.worldbank.org/sites/default/files/2021-08/15852-WB_Philippines%20Country%20Profile-WEB.pdf</a></p>
+
+    <p>XL Axiata. (2022, June 19). Jakarta Smart City wins award at WSIS. <a href="https://www.xlaxiata.co.id/en/news/jakarta-smart-city-wins-award-wsis" target="_blank" rel="noopener noreferrer">https://www.xlaxiata.co.id/en/news/jakarta-smart-city-wins-award-wsis</a></p>
+
+  </div>
+</body>
+</html>

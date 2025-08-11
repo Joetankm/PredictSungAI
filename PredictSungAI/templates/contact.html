@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+  <title>Flood Risk Predictor</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='Icon.png') }}">
+  <style>
+    body {
+        background-image: url("{{ url_for('static', filename='backgroundimg2.png') }}");
+        background-size: cover; /* Cover entire screen */
+        background-repeat: repeat-y; /* Prevent repeating */
+        background-position: center; /* Center the image */
+    }
+
+    header{
+        position: sticky;
+        top: 0;
+        z-index: 1000; 
+        backdrop-filter: blur(5px); 
+        padding: 15px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        color: #003333;
+        border-radius: 10px;
+        height: 50px;
+    }
+    .headBtn{
+      font-weight: bold;
+      transition: all 0.4s ease;
+      background: none;
+      color: #003333;
+    }
+    .headBtn:hover{
+      color: white;
+      background: none;
+    }
+
+    .headBtn2{
+      font-weight: bold;
+      transition: all 0.4s ease;
+      background: none;
+      color: gray;
+      margin: 0;
+      border-radius: 100px;
+    }
+    .headBtn2:hover{
+      background: lightgray;
+    }
+
+    .SignupBtn{
+      transition: all 0.4s ease;
+      background-color: white; 
+      border-radius: 100px; 
+      color: #003333;
+    }
+
+    .SignupBtn:hover{
+      color: white;
+      background-color: #003333;
+    }
+  
+    .container {
+      font-family: Arial, sans-serif;
+        max-width: 70%;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    
+    button {
+      border-radius: 100px;
+      background-color: black;
+      padding: 10px 20px;
+      color: white;
+      border: none;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    
+    p{
+        font-size: large;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; flex-direction: row;align-items: center;">
+      <img src="{{ url_for('static', filename='Icon.png') }}" style="height: 40px;">
+      <h4 style="margin: 0; font-family: Arial, Helvetica, sans-serif;">PredictSungAI</h2>
+    </div>
+    
+    <div class="headerBtn">
+      <button class="headBtn" onclick="location.href='/'">Home</button>
+      <button class="headBtn" onclick="location.href='/faq'">FAQ</button>
+      <button class="headBtn" onclick="location.href='/resources'">Resources</button>
+      <button class="headBtn" onclick="location.href='/about'">About</button>
+      <button class="headBtn" onclick="location.href='/contact'">Contact</button>
+    </div>
+
+    <div class="headerBtnRight">
+      <button class="headBtn">Login</button>
+      <button class="SignupBtn" >Sign Up</button>
+    </div>
+  </header>
+
+  <div class="container" style="text-align: justify;">
+    <h1>Contact Us!</h1>
+    <h2>Ng Yi Zhi</h2>
+    <p><strong>Role:</strong> Integration Lead - Workflow & Alignment Coordination</p>
+    <p><strong>Course:</strong> Bachelor of Science (Honours) in Computer Science</p>
+    <p><strong>Email:</strong> <a href="mailto:22032759@imail.sunway.edu.my">22032759@imail.sunway.edu.my</a></p>
+    <br>
+    <h2>Joe Tan Kai Meng</h2>
+    <p><strong>Role:</strong> Technical Lead - System & Model Development</p>
+    <p><strong>Course:</strong> Bachelor of Science (Honours) in Computer Science</p>
+    <p><strong>Email:</strong> <a href="mailto:jtkmjoe@gmail.com">jtkmjoe@gmail.com</a></p>
+    <br>
+    <h2>Fidela Alvitahira</h2>
+    <p><strong>Role:</strong> Research Lead - User & Market Insight</p>
+    <p><strong>Course:</strong> Bachelor of Science (Honours) in Computer Science</p>
+    <p><strong>Email:</strong> <a href="mailto:Fidela.alvitahira@gmail.com">Fidela.alvitahira@gmail.com</a></p>
+    <br>
+    <h2>Sunway Univerisity</h2>
+    <p><strong>Phone:</strong> +6(03) 7491 8622</p>
+    <p><strong>Email:</strong> <a href="mailto:info@sunway.edu.my">info@sunway.edu.my</a></p>
+    <p><strong>Address:</strong><br>200401015434 (653937-U)<br>DU025(B)<br>No. 5, Jalan Universiti,<br>Bandar Sunway,<br>47500 Selangor Darul Ehsan<br>Malaysia</p>
+  </div>
+</body>
+</html>

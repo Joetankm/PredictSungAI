@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+  <title>Flood Risk Predictor</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='Icon.png') }}">
+  <style>
+    body {
+        background-image: url("{{ url_for('static', filename='backgroundimg2.png') }}");
+        background-size: cover; /* Cover entire screen */
+        background-repeat: repeat-y; /* Prevent repeating */
+        background-position: center; /* Center the image */
+    }
+
+    header{
+        position: sticky;
+        top: 0;
+        z-index: 1000; 
+        backdrop-filter: blur(5px); 
+        padding: 15px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        color: #003333;
+        border-radius: 10px;
+        height: 50px;
+    }
+    .headBtn{
+      font-weight: bold;
+      transition: all 0.4s ease;
+      background: none;
+      color: #003333;
+    }
+    .headBtn:hover{
+      color: white;
+      background: none;
+    }
+
+    .headBtn2{
+      font-weight: bold;
+      transition: all 0.4s ease;
+      background: none;
+      color: gray;
+      margin: 0;
+      border-radius: 100px;
+    }
+    .headBtn2:hover{
+      background: lightgray;
+    }
+
+    .SignupBtn{
+      transition: all 0.4s ease;
+      background-color: white; 
+      border-radius: 100px; 
+      color: #003333;
+    }
+
+    .SignupBtn:hover{
+      color: white;
+      background-color: #003333;
+    }
+  
+    .container {
+      font-family: Arial, sans-serif;
+        max-width: 70%;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f7f7f7;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    
+    button {
+      border-radius: 100px;
+      background-color: black;
+      padding: 10px 20px;
+      color: white;
+      border: none;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    
+    p{
+        font-size: large;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display: flex; flex-direction: row;align-items: center;">
+      <img src="{{ url_for('static', filename='Icon.png') }}" style="height: 40px;">
+      <h4 style="margin: 0; font-family: Arial, Helvetica, sans-serif;">PredictSungAI</h2>
+    </div>
+    
+    <div class="headerBtn">
+      <button class="headBtn" onclick="location.href='/'">Home</button>
+      <button class="headBtn" onclick="location.href='/faq'">FAQ</button>
+      <button class="headBtn" onclick="location.href='/resources'">Resources</button>
+      <button class="headBtn" onclick="location.href='/about'">About</button>
+      <button class="headBtn" onclick="location.href='/contact'">Contact</button>
+    </div>
+
+    <div class="headerBtnRight">
+      <button class="headBtn">Login</button>
+      <button class="SignupBtn" >Sign Up</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>Frequently Asked Questions</h1>
+    <p><strong>Q1: What is PredictSungAI?</strong></p>
+    <p>A: PredictSungAI is an AI-powered platform developed by computer science students at Sunway University. It uses machine learning to predict flood risks, identify critical areas, and suggest resource allocation to help communities prepare and respond effectively.</p>
+    <br>
+    <p><strong>Q2: How accurate are the flood predictions?</strong></p>
+    <p>A: Our platform uses multiple environmental inputs and a random forest machine learning model trained on historical data to provide reliable flood risk forecasts. While predictions are robust, they should complement, not replace, official warnings and local knowledge.</p>
+    <br>
+    <p><strong>Q3: What data does the platform use for predictions?</strong></p>
+    <p>A: We incorporate flood severity, area type, population density, medical resource availability, and other environmental factors to estimate flood risks and needs.</p>
+    <br>
+    <p><strong>Q4: How can I use this platform in my community?</strong></p>
+    <p>A: You can use PredictSungAI to identify high-risk areas, plan resource distribution, and support disaster response efforts. The platform is designed for decision-makers, emergency responders, and community planners.</p>
+    <br>
+    <p><strong>Q5: Is the platform free to use?</strong></p>
+    <p>A: Yes, PredictSungAI is currently available for free as part of our academic and social impact initiative.</p>
+    <br>
+    <p><strong>Q6: Can I contribute or collaborate on this project?</strong></p>
+    <p>A: Absolutely! We welcome contributions, feedback, and partnerships. Please contact us through the “Contact” page to get involved.</p>
+    <br>
+    <p><strong>Q7: How often is the data updated?</strong></p>
+    <p>A: Data is updated based on user inputs and available environmental reports. We are continuously working to integrate real-time data sources for enhanced accuracy.</p>
+    <br>
+    <p><strong>Q8: How does PredictSungAI help with emergency response logistics?</strong></p>
+    <p>A: The platform includes a pathfinding AI that suggests the safest and fastest routes for delivering resources and emergency services to critical areas, helping responders act quickly and efficiently.</p>
+    
+  </div>
+</body>
+</html>
